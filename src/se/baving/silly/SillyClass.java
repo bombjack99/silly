@@ -4,8 +4,6 @@ public class SillyClass {
 
 	public static void main(String args[]) {
 		System.out.println("Hello Worldoo");
-		System.out.println("Hallå världen!");
-		
+		System.out.println("Hallï¿½ vï¿½rlden!");
 	}
-	
 }
