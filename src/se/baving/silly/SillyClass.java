@@ -7,5 +7,6 @@ public class SillyClass {
 		System.out.println("Hall� v�rlden!");
 		System.out.println("Hola mundo!");
 		System.out.println("Habla habla!");
+		System.out.println("Gretting Professor Falken!");
 	}
 }
