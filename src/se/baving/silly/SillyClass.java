@@ -6,5 +6,6 @@ public class SillyClass {
 		System.out.println("Hello Worldoo");
 		System.out.println("Hall� v�rlden!");
 		System.out.println("Hola mundo!");
+		System.out.println("Habla habla!");
 	}
 }
