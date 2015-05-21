@@ -9,8 +9,11 @@ public class Client {
         // write your code here
 
         GameView view = new AkeView();
-        //GameServerAPI model = new GameServerApi();
-        //GameController game = new Game(view, model);
-        GameController game = new Game(view);
+        //MessageSender sender = new API();
+        //PlayerListener controller = new Controller(view, sender); //un-comment when server API exists
+        PlayerListener controller = new Controller(view); //remove
+
+        ((AkeView) view).setPLayerListener(controller);
+        //sender.setServerListener(game); //un-comment when server API exists
     }
 }

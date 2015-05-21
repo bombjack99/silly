@@ -2,7 +2,6 @@ package com.velvet.m.client;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.border.CompoundBorder;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -34,7 +33,7 @@ public class AkeView implements ActionListener, GameView {
     protected JTextArea chatArea;
     private final static String newline = "\n";
 
-    private GameController gc;
+    private PlayerListener playerListener;
 
     public AkeView() {
         /**
@@ -104,14 +103,14 @@ public class AkeView implements ActionListener, GameView {
 
         /* Left panel - status of game? */
         Dimension leftDimension = new Dimension(frame.getWidth() / 6 + 50, 2 * (frame.getHeight() / 6) - 100); //w, h
-        leftPanel = createPanel(leftDimension, Color.black, "Game status", Color.gray);
+        leftPanel = createPanel(leftDimension, Color.black, "Controller status", Color.gray);
         leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.PAGE_AXIS));
         // add some funny things here to go into game status area....
         container.add(leftPanel, BorderLayout.LINE_START);
 
         /* Right panel - control? */
         Dimension rightDimension = new Dimension(frame.getWidth() / 6, 2 * (frame.getHeight() / 6) - 100);  //w, h
-        rightPanel = createPanel(rightDimension, Color.black, "Game Control and tbd...", Color.gray);
+        rightPanel = createPanel(rightDimension, Color.black, "Controller Control and tbd...", Color.gray);
         //rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.PAGE_AXIS));
         //add some control components to the right panel
         Dimension controlButtonsDimension = new Dimension(frame.getWidth()/6 - 50, (frame.getHeight()/6)-50); //w,h
@@ -186,27 +185,29 @@ public class AkeView implements ActionListener, GameView {
         return button;
     }
 
+    @Override
     public void actionPerformed(ActionEvent evt) {
-        if (gc == null) { return; }
+        if (playerListener == null) { return; }
 
         Object source = evt.getSource();
         if (source == chatInputField) {
             String text = chatInputField.getText();
             //clear input
             chatInputField.setText(">");
-            gc.chatEvent(text);
+            playerListener.chatEvent(text);
         } else if (source == rollButton) {
-            gc.rollEvent();
+            playerListener.rollEvent();
         } else if (source == joinButton) {
-            gc.joinEvent();
+            playerListener.joinEvent();
         } else if (source == startButton) {
-            gc.startEvent();
+            playerListener.startEvent();
         } else {
             // Should never happen. Unknown component. Die.
             assert false;
         }
     }
 
+    @Override
     public void appendChatText(String txt) {
         chatArea.append(txt + newline);
         chatArea.selectAll();
@@ -214,8 +215,9 @@ public class AkeView implements ActionListener, GameView {
         //was a selection in the text area.
         chatArea.setCaretPosition(chatArea.getDocument().getLength());
     }
-    public void setGameController (GameController gc) {
-        if(gc == null) throw new NullPointerException("Null Game Controller");
-        this.gc = gc;
+
+    public void setPLayerListener(PlayerListener playerListener) {
+        if(playerListener == null) throw new NullPointerException("Null PlayerListener");
+        this.playerListener = playerListener;
     }
 }
