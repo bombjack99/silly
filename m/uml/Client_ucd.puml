@@ -1,0 +1,31 @@
+@startuml
+
+title UCD of client side
+
+:Main Admin: as Admin
+
+left to right direction
+
+skinparam packageStyle rect
+actor clientApp
+rectangle Server {
+  (start/stop) << One Shot >> -- Admin
+  clientApp -- (connect)
+  (connect) .> (start/stop) : handles
+}
+
+note "User Join Game." as joins
+actor User
+actor Server
+rectangle ClientApp {
+  User .. joins
+  joins . (Join Set target URL)
+  (Handles cmd) -- Server
+  (Set target URL) .> (Handles cmd)
+}
+
+note right of (User)
+Using the application
+end note
+
+@enduml

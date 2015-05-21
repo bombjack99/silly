@@ -1,0 +1,113 @@
+@startuml
+
+title Class diagram of client side
+
+package com.velvet.m.client {
+
+interface GameServerListener{
+{abstract} diceRolled()
+{abstract} playerJoined()
+{abstract} playerMoved()
+{abstract} gameStarted()
+{abstract} ...()
+{abstract} onEvent()
+}
+interface ActionListener {
+{abstract} actionPerformed()
+}
+
+interface GameController {
+{abstract} joinEvent()
+{abstract} chatEvent(String s)
+{abstract} rollEvent()
+{abstract} startEvent()
+__ or just ? __
+{abstract} onEvent()
+}
+
+interface GameView {
+{abstract} apppendChatText()
+{abstract} setGameController()
+}
+
+package "com.velvet.m.util   " #DDDDDD {
+interface GameTransportListener {
+{abstract} onReceive()
+}
+}
+
+class Client {
++ static void main()
+}
+
+class Game implements GameController {
+- GameView view
+- ArrayList<Player> p
++ run()
+}
+note right of Game: The controller is bound to the view. \nThis typically means that any user \nactions that are performed on the \nview will invoke a registered listener method \nin the controller class. \nThe controller is given a reference to the\n underlying model.
+
+class AkeView extends JFrame implements GameView, ActionListener {
+- JButton joinButton
+- GameController gc
++ appendChatText()
++ setGameController()
+}
+note right of (GameView): The view registers as a listener on the model.\n Any changes to the underlying data \nof the model immediately result in a broadcast\n change notification, which the view receives. \nThis is an example of the push model.
+
+class Player {
+- Avatar a
+}
+
+class Avatar
+note right: Not sure what\n to do with this
+
+class GameServerAPI implements Runnable, GameTransportListener {
+- GameTransport gt
++run()
++join()
++rollDice()
++ addGameServerListener()
+__  private methods  __
+- onReceive()
+}
+note left of GameServerAPI: Note that the model (service) is not\n aware of the view or the controller \n-- it simply broadcasts change \nnotifications to all interested listeners.
+
+package "com.velvet.m.util   " #DDDDDD {
+class GameTransport implements Runnable {
+- GameTransportListener gtl
++ run()
++ send(GameCmd cmd)
++ addTransportListener(GameTransportListener gtl)
+- rcvThread()
+ }
+
+  class Message implements Serializable {
+ 	- GameCmd cmd;
+ 	- String response
+ 	- String command
+ 	+ Message(GameCmd cmd, String txt)
+ }
+ note right of Message: A final class \n(from www.bogotobogo.com/Java/tutorial/tcp_socket_server_client.php)
+
+ enum GameCmd {
+ JOIN
+ ROLL_DICE
+ START
+ END_TURN
+ }
+}
+
+GameServerListener <|.. Game
+Game "0..*" *-- "1" Player
+Player *-- Avatar : has a symbol <
+Game o-- GameServerAPI
+GameServerAPI o- GameTransport
+Game o- AkeView
+Client *-- Game
+GameTransport *-- Message
+
+
+
+
+@enduml
