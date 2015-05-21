@@ -23,7 +23,7 @@ public class Controller implements PlayerListener, ServerListener {
         String avatar = "Anonymous";
         // TODO: Remove! For now, bounce it back to view
         this.diceRolled(avatar, 3, 5);//remove
-        //sender.sendRoll(avatar);
+        //sender.sendRollDice(avatar);
     }
 
     @Override
@@ -31,7 +31,7 @@ public class Controller implements PlayerListener, ServerListener {
         String avatar = "Anonymous";
         // TODO: Remove! For now, bounce it back to view
         this.playerJoined(avatar); //remove
-        //sender.sendJoin(avatar);
+        //sender.sendJoinGame(avatar);
     }
 
     @Override
@@ -39,7 +39,7 @@ public class Controller implements PlayerListener, ServerListener {
         String avatar = "Anonymous";
         // TODO: Remove! For now, bounce it back to view
         this.playerChat(avatar, txt); //remove
-        //sender.sendChat(avatar, txt);
+        //sender.sendChatMsg(avatar, txt);
     }
 
     @Override
@@ -47,7 +47,7 @@ public class Controller implements PlayerListener, ServerListener {
         String avatar = "Anonymous";
         // TODO: Remove! For now, bounce it back to view
         this.gameStarted(avatar); //remove
-        //sender.sendStart(avatar);
+        //sender.sendStartGame(avatar);
     }
 
     /**
