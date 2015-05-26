@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.velvet.m.client;
 
 /**
@@ -41,12 +38,7 @@ public interface MessageSender {
 	 */
 	boolean connectToServer(String serverIP, int serverPort, String gameName);
 	
-	/**
-	 * Adds Listener to send messages to
-	 * @param sl - the Listener to send messages to
-	 */
-	void setServerListener(ServerListener sl);
-	
+		
 	/**
 	 * Starts new game
 	 */

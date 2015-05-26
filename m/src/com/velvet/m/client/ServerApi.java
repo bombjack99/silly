@@ -1,6 +1,6 @@
 package com.velvet.m.client;
 
-public class ServerAPI implements MessageSender {
+public class ServerApi implements MessageSender {
 	
 	private ServerListener sl = null;
 	private String serverIP   = "127.0.0.1";
@@ -64,7 +64,7 @@ public class ServerAPI implements MessageSender {
 	}
 	
 	
-	@Override
+	
 	public void setServerListener(ServerListener sl) {
 		this.sl = sl;
 	}
