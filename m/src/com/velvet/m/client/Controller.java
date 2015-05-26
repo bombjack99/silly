@@ -5,12 +5,12 @@ package com.velvet.m.client;
  */
 public class Controller implements PlayerListener, ServerListener {
     private GameView gameView;
-    //private MessageSender sender;
+    private MessageSender sender;
 
-    //Controller(GameView gameView, MessageSender sender) {
-    //this.gameView = gameView;
-    //this.sender = sender;
-    // }
+    Controller(GameView gameView, MessageSender sender) {
+    this.gameView = gameView;
+    this.sender = sender;
+    }
     Controller(GameView gameView) {
         this.gameView = gameView;
     }
@@ -20,34 +20,24 @@ public class Controller implements PlayerListener, ServerListener {
      */
     @Override
     public void rollEvent() {
-        String avatar = "Anonymous";
-        // TODO: Remove! For now, bounce it back to view
-        this.diceRolled(avatar, 3, 5);//remove
-        //sender.sendRollDice(avatar);
+        sender.rollDice(); 
     }
 
     @Override
     public void joinEvent() {
         String avatar = "Anonymous";
-        // TODO: Remove! For now, bounce it back to view
-        this.playerJoined(avatar); //remove
-        //sender.sendJoinGame(avatar);
+        //TODO: parameters should come from UI
+        sender.connectToServer("127.0.0.1", 9901, avatar);
     }
 
     @Override
     public void chatEvent(String txt) {
-        String avatar = "Anonymous";
-        // TODO: Remove! For now, bounce it back to view
-        this.playerChat(avatar, txt); //remove
-        //sender.sendChatMsg(avatar, txt);
+        sender.sendChatMessage(txt);
     }
 
     @Override
     public void startEvent() {
-        String avatar = "Anonymous";
-        // TODO: Remove! For now, bounce it back to view
-        this.gameStarted(avatar); //remove
-        //sender.sendStartGame(avatar);
+        sender.startNewGame();
     }
 
     /**

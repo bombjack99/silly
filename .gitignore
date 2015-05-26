@@ -2,3 +2,5 @@
 .idea
 m.iml
 out
+.classpath
+.project
